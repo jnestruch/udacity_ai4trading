@@ -9,7 +9,7 @@
 # In[1]:
 
 
-with open('prices_v2.csv', 'r') as file:
+with open('prices.csv', 'r') as file:
     prices = file.read()
     
 print(prices)
