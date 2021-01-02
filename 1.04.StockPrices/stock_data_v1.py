@@ -163,3 +163,39 @@ open_prices.T.mean()
 # To help with your implemention of quizzes, we provide you with unit tests to test your function implemention. For this quiz, we'll be using the function `test_csv_to_close` in the `quiz_tests` module to test `csv_to_close`.
 
 # In[ ]:
+
+import quiz_tests
+import pandas as pd
+
+
+def csv_to_close(csv_filepath, field_names):
+    """Reads in data from a csv file and produces a DataFrame with close data.
+    
+    Parameters
+    ----------
+    csv_filepath : str
+        The name of the csv file to read
+    field_names : list of str
+        The field names of the field in the csv file
+
+    Returns
+    -------
+    close : DataFrame
+        Close prices for each ticker and date
+    """
+    
+    # TODO: Implement Function
+    with open(csv_filepath,'r') as file:
+        prices = file.read()
+    
+    price_df = pd.read_csv(csv_filepath, names=['ticker','date','open','high','low','close','volume','adj_close','adj_volume'])
+    
+    open_prices = price_df.pivot(index='date', columns='ticker', values='open')
+    high_prices = price_df.pivot(index='date', columns='ticker', values='high')
+    low_prices = price_df.pivot(index='date', columns='ticker', values='low')
+    close_prices = price_df.pivot(index='date', columns='ticker', values='close')
+    volume = price_df.pivot(index='date', columns='ticker', values='volume')
+    adj_close_prices = price_df.pivot(index='date', columns='ticker', values='adj_close')
+    adj_volume = price_df.pivot(index='date', columns='ticker', values='adj_volume')
+           
+    return close_prices
